@@ -1,0 +1,26 @@
+{
+  "name": "OBE-TestCases-Tier-C1Toronto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "wdio"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "wdio-firefox-profile-service": "^0.1.1",
+    "wdio-json-reporter": "^0.3.1",
+    "wdio-mocha-framework": "^0.5.12",
+    "wdio-selenium-standalone-service": "0.0.9",
+    "wdio-spec-reporter": "^0.1.4",
+    "wdio-tap-reporter": "0.0.5",
+    "webdriverio": "^4.10.2"
+  },
+  "dependencies": {
+    "add-subtract-date": "^1.0.13",
+    "chai": "^4.1.2",
+    "numeral": "^2.0.6"
+  }
+}
