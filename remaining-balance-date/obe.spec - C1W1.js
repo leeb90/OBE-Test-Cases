@@ -252,7 +252,7 @@ describe('Remanining Balance Date C1W1', function()  {
             month= AddDays.slice(4,7);
             date=AddDays.slice(8,10);
             year=AddDays.slice(11,15);
-            addDate.subtract(CurrentDate1,13,"days").toString();
+            addDate.subtract(CurrentDate1,13,"days");
             Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
 
            
