@@ -244,7 +244,7 @@ describe('Remanining Balance Date C1W2', function()  {
 
             ObePage.open('IP OF APPLICATION');
 
-    	      AddDays =addDate.add(CurrentDate1,13,"days").toString();
+    	    AddDays =addDate.add(CurrentDate1,13,"days").toString();
             month= AddDays.slice(4,7);
             date=AddDays.slice(8,10);
             year=AddDays.slice(11,15);
@@ -262,9 +262,9 @@ describe('Remanining Balance Date C1W2', function()  {
               if(ObePage.rooms===true){
 
               	if(ObePage.Total===""){
-              		Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
-
-              		ObePage.resort.selectByValue(Resort);
+			
+              	    Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
+              	    ObePage.resort.selectByValue(Resort);
                     ObePage.chkinmonth.selectByValue(SetMonth(month));
                     ObePage.chkinday.selectByValue(SetDate(date));
                     ObePage.chkinyear.selectByValue(year);
@@ -317,7 +317,7 @@ describe('Remanining Balance Date C1W2', function()  {
 
             ObePage.open('IP OF APPLICATION');
       
-    	      AddDays =addDate.add(CurrentDate2,25,"days").toString();
+    	    AddDays =addDate.add(CurrentDate2,25,"days").toString();
             month= AddDays.slice(4,7);
             date=AddDays.slice(8,10);
             year=AddDays.slice(11,15);
@@ -336,9 +336,9 @@ describe('Remanining Balance Date C1W2', function()  {
               if(ObePage.rooms===true){
 
               	if(ObePage.Total===""){
-              		Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
-
-              		ObePage.resort.selectByValue(Resort);
+			
+              	    Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
+              	    ObePage.resort.selectByValue(Resort);
                     ObePage.chkinmonth.selectByValue(SetMonth(month));
                     ObePage.chkinday.selectByValue(SetDate(date));
                     ObePage.chkinyear.selectByValue(year);
@@ -400,7 +400,7 @@ describe('Remanining Balance Date C1W2', function()  {
 
             ObePage.open('IP OF APPLICATION');
 
-    	      AddDays = addDate.add(CurrentDate3,35,"days").toString();
+    	    AddDays = addDate.add(CurrentDate3,35,"days").toString();
             month = AddDays.slice(4,7);
             date =AddDays.slice(8,10);
             addDate.subtract(CurrentDate3,35,"days");
@@ -418,9 +418,9 @@ describe('Remanining Balance Date C1W2', function()  {
               if(ObePage.rooms===true){
 
               	if(ObePage.Total===""){
-              		Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
-
-              		ObePage.resort.selectByValue(Resort);
+			
+              	    Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
+              	    ObePage.resort.selectByValue(Resort);
                     ObePage.chkinmonth.selectByValue(SetMonth(month));
                     ObePage.chkinday.selectByValue(SetDate(date));
                     ObePage.chkinyear.selectByValue(year);
@@ -458,10 +458,10 @@ describe('Remanining Balance Date C1W2', function()  {
        ObePage.adult1age.selectByValue('23');
        ObePage.guestInfoBtn.click();
 
-        Today= new Date(d.getFullYear(),d.getMonth(),d.getDate());
+       Today= new Date(d.getFullYear(),d.getMonth(),d.getDate());
        let Add2Days =addDate.add(Today,2,"days").toString();
        let date2Days=Add2Days.slice(8,10);
-        addDate.subtract(Today,2,"days");
+       addDate.subtract(Today,2,"days");
        dateBalanceDue= ObePage.BalanceDueText.slice(48,50);
 
     
@@ -479,11 +479,11 @@ describe('Remanining Balance Date C1W2', function()  {
 
             ObePage.open('IP OF APPLICATION');
       
-    	      AddDays =addDate.add(CurrentDate4,48,"days").toString();
+    	    AddDays =addDate.add(CurrentDate4,48,"days").toString();
             month = AddDays.slice(4,7);
             date =AddDays.slice(8,10);
             addDate.subtract(CurrentDate4,48,"days");
-		      	Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
+            Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
 
             
             ObePage.resort.selectByValue(Resort);
@@ -498,9 +498,8 @@ describe('Remanining Balance Date C1W2', function()  {
 
               	if(ObePage.Total===""){
 
-              		Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
-
-              		ObePage.resort.selectByValue(Resort);
+                    Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
+              	    ObePage.resort.selectByValue(Resort);
                     ObePage.chkinmonth.selectByValue(SetMonth(month));
                     ObePage.chkinday.selectByValue(SetDate(date));
                     ObePage.chkinyear.selectByValue(year);
@@ -559,7 +558,7 @@ describe('Remanining Balance Date C1W2', function()  {
 
             ObePage.open('IP OF APPLICATION');
 
-    	      AddDays =addDate.add(CurrentDate5,80,"days").toString();
+    	    AddDays =addDate.add(CurrentDate5,80,"days").toString();
             month = AddDays.slice(4,7);
             date =AddDays.slice(8,10);
             addDate.subtract(CurrentDate5,80,"days");
