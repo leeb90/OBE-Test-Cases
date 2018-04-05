@@ -10,7 +10,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
 
-    host:'10.102.1.235',
+    host:'IP OF GRID',
    port: 4444,
 
 //    specs: [
