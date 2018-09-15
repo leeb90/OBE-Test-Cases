@@ -1,235 +1,137 @@
 // obe.spec.js
 const expect = require('chai').expect;
-const ObePage = require('../obe.page');
+const ObePage = require('app/obe.page');
 const numeral= require('numeral');
 
 
-const resortArray = [
-    "SEB,S,2",
-    "SRB,S,2",
-    "SLS,S,2",
-    "INN,S,2",
-    "SMB,S,2",
-    "SNG,S,2",
-    "SRC,S,2",
-    "BRP,S,6",
-    "SWH,S,2",
-    "SGL,S,2",
-    "SHC,S,2",
-    "SLU,S,2",
-    "SBD,S,2"
-];
 
-const d= new Date();
+const resortArray = require('app/resortsobe').resorts;
 
-let month = '12';
-let year = d.getFullYear();
-let date= '27';
-let Resort='';
+describe('Insurance Amount Sandals Canada', function()  {
 
-let InsuranceTotal= '';
-let HoldOption= '';
-let FullOption= '';
-let InsurancexAdults= '';
-let HoldTotal= '';
-let FullTotal= '';
-let HoldOption2= '';
-let FullOption2= '';
-
-
-
-
-
-describe('Insurance Amount Sandals C1W1', function()  {
-
-    this.retries(4);
+    let Checkin;
+	let Checkout;
+	this.retries(1);
     
-    it('should test insurance amount on Sandals resorts for USA for arrivals between 12-21 and 1-2 C1W1', ()=> {
+    it('Should Test Insurance Amount for Canada', ()=> {
 
-      console.log('TEST STARTING: Insurance amount on Sandals resorts for USA for arrivals between 12-21 and 1-2 C1W1');
+        Checkin= new Date();
+		Checkin.setDate(Checkin.getDate() + 18);
+		Checkout= new Date(Checkin);
+		Checkout.setDate(Checkin.getDate() + 3);
+		
+		let checkinMonth= Checkin.getMonth() +1;
+		let checkinDate= Checkin.getDate();
+		let checkinYear= Checkin.getFullYear();
+		let checkoutMonth= Checkout.getMonth() +1;
+		let checkoutDate= Checkout.getDate();
+		let checkoutYear= Checkout.getFullYear();
 
-      ObePage.open('IP OF APPLICATION');
+        ObePage.open('https://obe.sandals.com/');
+        Resort=resortArray[Math.floor(Math.random() * resortArray.length)];
+        ObePage.resort.selectByValue(Resort);
+        ObePage.chkinmonth.selectByValue(checkinMonth);
+		ObePage.chkinday.selectByValue(checkinDate);
+		ObePage.chkinyear.selectByValue(checkinYear);
+		ObePage.chkoutmonth.selectByValue(checkoutMonth);
+	    ObePage.chkoutday.selectByValue(checkoutDate);
+	    ObePage.chkoutyear.selectByValue(checkoutYear);
+        ObePage.submit.click();
 
-      Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
+        browser.waitUntil(function (){
 
+        if(ObePage.rooms && ObePage.continuebtn && ObePage.Total){
+
+            return true;
+
+            }
+
+            else if(ObePage.rooms && ObePage.continuebtn && !ObePage.Total){
+
+            Resort=resortArray[Math.floor(Math.random() * resortArray.length)];
             ObePage.resort.selectByValue(Resort);
-            ObePage.chkinmonth.selectByValue(month);
-            ObePage.chkinday.selectByValue(date);
-            ObePage.chkinyear.selectByValue(year);
-            ObePage.submit.click();
+            ObePage.requote.click();
+
+
+            }
+
+        });
+
+        ObePage.submit2.click();
+
+        browser.waitUntil(()=>{
+
+                return ObePage.packagesummary===true;
+
+
+            }); 
+
+
+        ObePage.title.selectByValue('MR');
+        ObePage.gender.selectByValue('M');
+        ObePage.address.setValue('Arizona Street');
+        ObePage.firstName.setValue('Luis');
+        ObePage.lastName.setValue('Honduras');
+        ObePage.city.setValue('Arizona')
+        ObePage.country.selectByValue('CANADA');
+        ObePage.state.selectByValue('AB');
+        ObePage.zip.setValue('T0E 0A0');
+        ObePage.phone.setValue('6025550138');
+        ObePage.email.setValue('lespinoza@sanservices.hn');
+        ObePage.age.selectByValue('25');
+        ObePage.adult1Title.selectByValue('MRS');
+        ObePage.adult1Name.setValue('Luisa');
+        ObePage.adult1LastName.setValue('Honduras');
+        ObePage.adult1Gender.selectByValue('F');
+        ObePage.adult1age.selectByValue('23');
+        ObePage.guestInfoBtn.click();
+
+        browser.waitUntil(()=>{
+
+                return ObePage.packagesummary===true;
+
+
+            }); 
+
+
+            InsuranceTotal= numeral(ObePage.InsuranceMessage.match(/[^$]*$/).toString()).value();
+            HoldOption= numeral(ObePage.HoldPayment.match(/[^$]*$/).toString()).value();
+            FullOption= numeral(ObePage.FullPayment.match(/[^$]*$/).toString()).value();
+
+            let InsurancexAdults, HoldTotal, FullTotal;
+
+
+        if((Checkin.getMonth()===11 && Checkin.getDate()>=21 && Checkin.getDate()<=31) 
+        || (Checkin.getMonth()===0 && Checkin.getDate()>=1 && Checkin.getDate()<=2)){
+
+            InsurancexAdults= 2*124.00;
+            message='Expect Insurance Message to Appear for dates Between December 31 and Janury 2 on Step 4';
             
-
-             browser.waitUntil(()=>{
-              if(ObePage.rooms===true){
-
-              	if(ObePage.Total===""){
-
-                  Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
-
-              	  	ObePage.resort.selectByValue(Resort);
-                    ObePage.chkinmonth.selectByValue(month);
-                    ObePage.chkinday.selectByValue(date);
-                    ObePage.chkinyear.selectByValue(year);
-                    ObePage.requote.click();
-
-              	}
-
-              else {
-
-              	return true;
-              }
-          }
-        
-            });
-
-             ObePage.submit2.submitForm();
-
-
-       ObePage.title.selectByValue('MR');
-       ObePage.gender.selectByValue('M');
-       ObePage.address.setValue('Arizona Street');
-       ObePage.firstName.setValue('Luis');
-       ObePage.lastName.setValue('Honduras');
-       ObePage.city.setValue('Arizona')
-       ObePage.country.selectByValue('USA');
-       ObePage.state.selectByValue('AZ');
-       ObePage.zip.setValue('85001');
-       ObePage.phone.setValue('6025550138');
-       ObePage.email.setValue('lespinoza@sanservices.hn');
-       ObePage.age.selectByValue('25');
-       ObePage.adult1Title.selectByValue('MRS');
-       ObePage.adult1Name.setValue('Luisa');
-       ObePage.adult1LastName.setValue('Honduras');
-       ObePage.adult1Gender.selectByValue('F');
-       ObePage.adult1age.selectByValue('23');
-       ObePage.guestInfoBtn.click();
-
-
-       InsuranceTotal= numeral(ObePage.InsuranceMessage.match(/[^$]*$/).toString()).value();
-       HoldOption= numeral(ObePage.HoldPayment.match(/[^$]*$/).toString()).value();
-       FullOption= numeral(ObePage.FullPayment.match(/[^$]*$/).toString()).value();
-
-
-       //Calculations
-       InsurancexAdults= 2*124.00;
-       HoldTotal= HoldOption+InsuranceTotal;
-       FullTotal= FullOption+InsuranceTotal;
-
+        }
+        else {
+            //Calculations
+            InsurancexAdults= 2*114.00;
+            message='Expect Insurance Message to Appear on Step 4';
+        }
+        HoldTotal= HoldOption+InsuranceTotal;
+        FullTotal= FullOption+InsuranceTotal;
     
 
-       ObePage.InsuranceAgreeButton.click();
+        ObePage.InsuranceAgreeButton.click();
 
 
-       //New Values after click
+    //New Values after click
         HoldOption2= numeral(ObePage.HoldPayment.match(/[^$]*$/).toString()).value();
         FullOption2= numeral(ObePage.FullPayment.match(/[^$]*$/).toString()).value();
 
 
-      
+        expect(ObePage.InsuranceAgree,message).to.be.true;
+        expect(InsuranceTotal).to.equal(InsurancexAdults);
+        expect(HoldTotal).to.equal(HoldOption2);
+        expect(FullTotal).to.equal(FullOption2);
 
-
-       expect(ObePage.InsuranceAgree).to.be.true;
-       expect(InsuranceTotal).to.equal(InsurancexAdults);
-       expect(HoldTotal).to.equal(HoldOption2);
-       expect(FullTotal).to.equal(FullOption2);
-
-            
-    });
-
-     it('should test insurance amount on Sandals resorts for Canada for arrivals between 12-21 and 1-2 C1W1', ()=> {
-
-            console.log('TEST STARTING: Insurance amount on Sandals resorts for Canada for arrivals between 12-21 and 1-2 C1W1');
-
-            ObePage.open('IP OF APPLICATION');
-            Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
-
-            ObePage.resort.selectByValue(Resort);
-            ObePage.chkinmonth.selectByValue(month);
-            ObePage.chkinday.selectByValue(date);
-            ObePage.chkinyear.selectByValue(year);
-            ObePage.submit.click();
-            
-
-             browser.waitUntil(()=>{
-              if(ObePage.rooms===true){
-
-                if(ObePage.Total===""){
-
-                  Resort= resortArray[Math.floor(Math.random() * resortArray.length)];
-
-                    ObePage.resort.selectByValue(Resort);
-                    ObePage.chkinmonth.selectByValue(month);
-                    ObePage.chkinday.selectByValue(date);
-                    ObePage.chkinyear.selectByValue(year);
-                    ObePage.requote.click();
-
-                }
-
-              else {
-
-                return true;
-              }
-          }
-        
-            });
-
-             ObePage.submit2.submitForm();
-
-
-       ObePage.title.selectByValue('MR');
-       ObePage.gender.selectByValue('M');
-       ObePage.address.setValue('Arizona Street');
-       ObePage.firstName.setValue('Luis');
-       ObePage.lastName.setValue('Honduras');
-       ObePage.city.setValue('Arizona')
-       ObePage.country.selectByValue('CANADA');
-       ObePage.state.selectByValue('AB');
-       ObePage.zip.setValue('T0E 0A0');
-       ObePage.phone.setValue('6025550138');
-       ObePage.email.setValue('lespinoza@sanservices.hn');
-       ObePage.age.selectByValue('25');
-       ObePage.adult1Title.selectByValue('MRS');
-       ObePage.adult1Name.setValue('Luisa');
-       ObePage.adult1LastName.setValue('Honduras');
-       ObePage.adult1Gender.selectByValue('F');
-       ObePage.adult1age.selectByValue('23');
-       ObePage.guestInfoBtn.click();
-
-
-       InsuranceTotal= numeral(ObePage.InsuranceMessage.match(/[^$]*$/).toString()).value();
-       HoldOption= numeral(ObePage.HoldPayment.match(/[^$]*$/).toString()).value();
-       FullOption= numeral(ObePage.FullPayment.match(/[^$]*$/).toString()).value();
-
-
-       //Calculations
-       InsurancexAdults= 2*124.00;
-       HoldTotal= HoldOption+InsuranceTotal;
-       FullTotal= FullOption+InsuranceTotal;
-
-    
-
-       ObePage.InsuranceAgreeButton.click();
-
-
-       //New Values after click
-        HoldOption2= numeral(ObePage.HoldPayment.match(/[^$]*$/).toString()).value();
-        FullOption2= numeral(ObePage.FullPayment.match(/[^$]*$/).toString()).value();
-
-
-      
-
-
-       expect(ObePage.InsuranceAgree).to.be.true;
-       expect(InsuranceTotal).to.equal(InsurancexAdults);
-       expect(HoldTotal).to.equal(HoldOption2);
-       expect(FullTotal).to.equal(FullOption2);
-            
-    });
-
-
-
-
-    
+                
+        });
 
 });
 
